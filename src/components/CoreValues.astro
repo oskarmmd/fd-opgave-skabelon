@@ -63,9 +63,8 @@ const values = data.values ?? [];
 
 <style>
   @layer components {
-    /* ========= THEME ========= */
+    
     .cv {
-      /* shared spacing */
       padding-block: clamp(3rem, 6vw, 5rem);
     }
 
@@ -101,7 +100,7 @@ const values = data.values ?? [];
       --cta-fg: #ffffff;
     }
 
-    /* ========= LAYOUT ========= */
+ 
     .cv {
       background: var(--cv-bg);
       color: var(--cv-text);
@@ -218,16 +217,15 @@ const values = data.values ?? [];
     }
 
 .cv-cards {
-  align-items: start; /* IMPORTANT: don’t stretch cards to same height */
+  align-items: start; 
 }
 
 .cv-card {
-  height: clamp(260px, 28vw, 300px); /* short cards (2 & 4) */
-}
+  height: clamp(260px, 28vw, 300px);
 
 .cv-card:nth-child(1),
 .cv-card:nth-child(3) {
-  height: clamp(300px, 32vw, 360px); /* taller cards (1 & 3) */
+  height: clamp(300px, 32vw, 360px); 
 }
 
 .cv-card a {

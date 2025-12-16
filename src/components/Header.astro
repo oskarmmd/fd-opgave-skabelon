@@ -22,8 +22,8 @@
 <style>
   .site-header {
     background: rgba(27, 27, 27, 0.91);
-    /* Primary 03 */
-    color: var(--color-white); /* Secondary 02 */
+
+    color: var(--color-white); 
   }
 
   .header-inner {
@@ -31,7 +31,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    padding: 28px 24px; /* fra Figma */
+    padding: 28px 24px; 
     max-width: var(--container);
     margin-inline: auto;
   }
@@ -64,10 +64,10 @@
     text-decoration: underline;
   }
 
-  /* Login-knap */
+
   .login {
-    background: var(--color-yellow); /* Primary 01 */
-    color: var(--color-black); /* Primary 03 */
+    background: var(--color-yellow); 
+    color: var(--color-black); 
     border-radius: 999px;
     padding: 0.5rem 1rem;
     font-weight: 700;
@@ -79,4 +79,20 @@
   .login:hover {
     filter: brightness(0.95);
   }
+
+  @media (max-width: 720px) {
+  .main-nav {
+    gap: 14px;
+  }
+
+  .main-nav a {
+    font-size: 0.6rem;
+  }
+
+  .login {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.6rem;
+  }
+}
+
 </style>

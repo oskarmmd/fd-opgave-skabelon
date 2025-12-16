@@ -4,12 +4,12 @@ import employees from "@data/employees.json";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
-/* social icons */
+
 import IconInstagram from "@icons/instagram.svg";
 import IconFacebook from "@icons/facebook.svg";
 import IconTwitter from "@icons/twitter.svg";
 
-/* images */
+
 const images = import.meta.glob<{ default: ImageMetadata }>(
   "/src/data/images/*.{webp,png,jpg,jpeg}"
 );
@@ -33,12 +33,12 @@ const image = mod.default;
 <Layout>
   <section class="profile">
     <div class="inner">
-      <!-- IMAGE -->
+     
       <div class="media">
         <Image src={image} alt={employee.name} class="photo" />
       </div>
 
-      <!-- CONTENT -->
+      
       <div class="content">
         <p class="eyebrow">TEAM MEMBER</p>
         <h1 class="name">{employee.name}</h1>
@@ -69,7 +69,7 @@ const image = mod.default;
 
 <style>
 @layer components {
-  /* ===== SECTION ===== */
+
   .profile{
     padding: clamp(60px, 8vw, 90px) 0;
     background: #fff;
@@ -85,7 +85,7 @@ const image = mod.default;
     align-items: center;
   }
 
-  /* ===== IMAGE + PATTERN (same logic as Expect) ===== */
+ 
   .media{
     position: relative;
     isolation: isolate;
@@ -100,7 +100,6 @@ const image = mod.default;
     object-fit: cover;
   }
 
-  /* GOLD PATTERN */
   .media::before{
     content:"";
     position:absolute;
@@ -123,7 +122,7 @@ const image = mod.default;
     z-index: 0;
   }
 
-  /* GREEN BLOCK */
+ 
   .media::after{
     content:"";
     position:absolute;
@@ -136,7 +135,7 @@ const image = mod.default;
     z-index: 0;
   }
 
-  /* ===== CONTENT ===== */
+  
   .content{
     max-width: 520px;
   }
@@ -187,7 +186,7 @@ const image = mod.default;
     background: rgba(17,17,17,.12);
   }
 
-  /* ===== SOCIAL ===== */
+
   .social{
     display: flex;
     gap: 14px;

@@ -11,7 +11,7 @@ import CEOImage from "@assets/images/ceo.png";
       <a class="cta" href="#0">Book a Meeting</a>
     </div>
 
-    <!-- Hero-billede -->
+
     <div class="image-wrap">
       <Image src={CEOImage} alt="CEO" />
     </div>
@@ -39,14 +39,13 @@ import CEOImage from "@assets/images/ceo.png";
       z-index: 2;
     }
 
-    /* ===== HERO BASE ===== */
+
 
      .hero {
     position: relative;
     background: var(--color-black);
     color: var(--color-white);
 
-    /* ✅ scalable hero height + min height */
     min-height: clamp(460px, 75vh, 660px);
   }
 
@@ -55,7 +54,6 @@ import CEOImage from "@assets/images/ceo.png";
     grid-template-columns: 1fr 1fr;
     align-items: stretch;
 
-    /* ✅ ensures the grid matches hero height */
     min-height: inherit;
   }
 
@@ -99,5 +97,6 @@ import CEOImage from "@assets/images/ceo.png";
     .cta:hover {
       filter: brightness(0.9);
     }
-  }
+
+  
 </style>

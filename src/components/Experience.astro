@@ -65,7 +65,6 @@ const stats = data.stats ?? [];
       opacity: 0.9;
     }
 
-    /* === YOUR METHOD === */
     .stats {
       --bg-color: var(--color-yellow, #fbc336);
       display: flex;
@@ -134,6 +133,50 @@ const stats = data.stats ?? [];
       offset-distance: var(--p);
       offset-anchor: 50% calc(50% - var(--border-width) / 2);
     }
+
+  
+@media (max-width: 900px) {
+  .exp-inner {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .exp-title {
+    max-width: none;
+  }
+
+  .stats {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .stat-wrap {
+    width: calc(50% - 9px); 
+  }
+
+  .stat {
+    width: clamp(84px, 22vw, 112px);
+  }
+
+  .stat::after {
+    transform: translateY(-14px);
+  }
+}
+
+@media (max-width: 520px) {
+  .stat-wrap {
+    width: 100%; 
+  }
+
+  .stat {
+    width: 96px;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+  }
+}
 
   }
 </style>

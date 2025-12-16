@@ -12,7 +12,7 @@ import PhotoBottom from "@data/images/storyboard.webp";
 
 <section class="cp">
   <div class="cp-inner">
-    <!-- LEFT -->
+  
     <div class="cp-left">
       <p class="cp-eyebrow">PROCESS</p>
       <h2 class="cp-title">Contact Us. It’s Easy.</h2>
@@ -51,7 +51,7 @@ import PhotoBottom from "@data/images/storyboard.webp";
       </ul>
     </div>
 
-    <!-- RIGHT -->
+   
     <div class="cp-right">
       <div class="cp-main">
         <Image src={MainPhoto} alt="Consultant portrait" />
@@ -206,5 +206,11 @@ import PhotoBottom from "@data/images/storyboard.webp";
       grid-template-columns: 1fr;
     }
   }
+  @media (max-width: 600px) {
+  .cp-dots,
+  .cp-green {
+    display: none;
+  }
+}
 }
 </style>

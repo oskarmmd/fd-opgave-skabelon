@@ -9,7 +9,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
 const employeesWithImages = await Promise.all(
   employees.slice(0, 3).map(async (employee) => {
-    // udtræk filnavn direkte
+
     const file = employee.img.split("/").pop();
     const key = `/src/data/images/${file}`;
 
