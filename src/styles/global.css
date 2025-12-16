@@ -1,1 +1,30 @@
-/* Globale styles her */
+@layer global {
+  :root {
+    --color-yellow: #ffcc4a; /* Primary 01 */
+    --color-green: #4eaf4e; /* Primary 02 */
+    --color-black: #181818; /* Primary 03 */
+
+    --color-light: #f5f5f5; /* Secondary 01 */
+    --color-white: #ffffff;
+
+    --font-display: "Cabin", system-ui, sans-serif;
+    --font-body: "Lato", system-ui, sans-serif;
+
+    --radius: 14px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+
+    --text-color: var(--color-black);
+    --text-color-invert: var(--color-white);
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+
+    --container: 72rem;
+
+    --transition: 0.2s ease;
+  }
+}

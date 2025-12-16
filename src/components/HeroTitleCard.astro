@@ -1,0 +1,63 @@
+---
+import HeroBgWrapper from "./helpers/HeroBgWrapper.astro";
+
+const {
+  imagePath,
+  title = "",
+  eyebrow = "",
+  class: className = "",
+} = Astro.props;
+---
+
+<HeroBgWrapper
+  imagePath={imagePath}
+  class={`hero-bg ${className}`}
+>
+  <div class="hero-inner">
+    <div class="hero-card">
+      <span class="hero-pill">{eyebrow}</span>
+      <h1 class="hero-title">{title}</h1>
+      <slot />
+    </div>
+  </div>
+</HeroBgWrapper>
+
+<style>
+  .hero-inner{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1100px;
+    padding: 6rem 24px;
+    margin: 0 auto;
+  }
+
+  .hero-card{
+    width: min(760px, 100%);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    padding: 34px 36px;
+  }
+
+  .hero-pill{
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: #f6d36b;   /* yellow badge */
+    color: #2b2100;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  .hero-title{
+    margin: 0;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.1;
+    font-weight: 800;
+    color: #111;
+  }
+</style>

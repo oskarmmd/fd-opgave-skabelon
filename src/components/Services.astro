@@ -1,24 +1,123 @@
 ---
 //@ts-nocheck
 import servicesData from "@data/services.json";
-console.log(servicesData);
+
+
+const services = Array.isArray(servicesData)
+  ? servicesData
+  : (servicesData?.services ?? []);
 ---
 
-<ul>
-  {
-    servicesData.services.map((service) => (
-      <li>
-        <h2>{service.title}</h2>
-        <p>{service.description}</p>
-        <a href="#0">{service.buttonText}</a>
-      </li>
-    ))
-  }
-</ul>
+<section class="services" aria-label="Services">
+  <div class="cards-wrap">
+    <div class="cards">
+      {services.map((service) => (
+        <article class="card">
+          <h3 class="card-title">{service.title}</h3>
+          <p class="card-desc">{service.description}</p>
+          <a class="btn-dark" href="#0">{service.buttonText}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
 
 <style>
   @layer components {
-    li {
+    
+    .services {
+      position: relative;
+    }
+
+    
+    .cards-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      display: flex;
+      justify-content: center;
+
+      transform: translateY(50%);
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    
+    .cards {
+      width: min(1200px, 100%);
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 3vw, 1.5rem);
+
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      
+      grid-template-rows: auto 1fr auto;
+
+      gap: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    
+    .card {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+
+      background: color-mix(in srgb, var(--color-white) 10%, var(--color-black));
+      color: var(--color-white);
+      border-radius: 1rem;
+      padding: clamp(1rem, 2.2vw, 1.35rem);
+
+      align-content: start;
+
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.35),
+        0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      grid-row: 1;
+      font-weight: 700;
+      line-height: 1.25;
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      margin: 0;
+    }
+
+    
+    .card-desc {
+      grid-row: 2;
+      margin: 0;
+      font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 52ch;
+    }
+
+    
+    .btn-dark {
+      grid-row: 3;
+      justify-self: start;
+      align-self: end;
+
+      display: inline-block;
+      background: color-mix(in srgb, var(--color-black) 85%, var(--color-white));
+      color: var(--color-white);
+      text-decoration: none;
+      font-weight: 600;
+
+      padding: 0.5rem 0.95rem;
+      font-size: clamp(0.8rem, 1.3vw, 0.9rem);
+
+      border-radius: 999px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
     }
   }
 </style>

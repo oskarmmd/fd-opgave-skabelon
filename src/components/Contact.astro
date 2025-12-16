@@ -1,0 +1,210 @@
+---
+import { Image } from "astro:assets";
+
+import IconPhone from "@icons/phone.svg";
+import IconClock from "@icons/clock.svg";
+import IconPin from "@icons/pin.svg";
+
+import MainPhoto from "@data/images/1.jpg";
+import PhotoTop from "@data/images/2.jpg";
+import PhotoBottom from "@data/images/storyboard.webp";
+---
+
+<section class="cp">
+  <div class="cp-inner">
+    <!-- LEFT -->
+    <div class="cp-left">
+      <p class="cp-eyebrow">PROCESS</p>
+      <h2 class="cp-title">Contact Us. It’s Easy.</h2>
+      <p class="cp-sub">
+        Leverage agile frameworks to provide a robust synopsis for high level
+        overviews. Iterative approaches to corporate strategy foster collaborative.
+      </p>
+
+      <ul class="cp-list">
+        <li class="cp-item">
+          <span class="cp-icon yellow"><IconPhone /></span>
+          <div>
+            <p class="cp-label">Call Today</p>
+            <p class="cp-value">+1 800 100 900</p>
+          </div>
+        </li>
+
+        <li class="cp-item">
+          <span class="cp-icon green"><IconClock /></span>
+          <div>
+            <p class="cp-label">Monday To Friday</p>
+            <p class="cp-value">9AM – 5PM</p>
+          </div>
+        </li>
+
+        <li class="cp-item">
+          <span class="cp-icon gray"><IconPin /></span>
+          <div>
+            <p class="cp-label">USA Office</p>
+            <p class="cp-value">
+              195 Devonshire St Boston, MA<br />
+              02110
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="cp-right">
+      <div class="cp-main">
+        <Image src={MainPhoto} alt="Consultant portrait" />
+        <span class="cp-green"></span>
+      </div>
+
+      <div class="cp-stack">
+        <Image src={PhotoTop} alt="Meeting at laptop" />
+        <Image src={PhotoBottom} alt="Team discussion" />
+        <span class="cp-dots"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+@layer components {
+  .cp {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    background: #fff;
+  }
+
+  .cp-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 3vw, 1.5rem);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  /* LEFT */
+  .cp-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .cp-title {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .cp-sub {
+    max-width: 60ch;
+    color: #666;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+  }
+
+  .cp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .cp-item {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 0.9rem;
+    align-items: center;
+  }
+
+  .cp-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+  }
+
+  .cp-icon :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cp-icon.yellow { background: #ffcc4a; }
+  .cp-icon.green { background: #a8e6a1; }
+  .cp-icon.gray { background: #eee; }
+
+  .cp-label {
+    font-size: 0.75rem;
+    color: #777;
+    margin: 0;
+  }
+
+  .cp-value {
+    font-weight: 800;
+    margin: 0.1rem 0 0 0;
+  }
+
+  /* RIGHT */
+  .cp-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .cp-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    z-index: 2;
+  }
+
+  .cp-main {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cp-green {
+    position: absolute;
+    left: -40px;
+    bottom: -30px;
+    width: 85%;
+    height: 30%;
+    background: #4eaf4e;
+    border-radius: 18px;
+    z-index: -1;
+  }
+
+  .cp-stack {
+    position: relative;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .cp-dots {
+    position: absolute;
+    right: -50px;
+    top: -30px;
+    width: 280px;
+    height: 250px;
+    background-image: radial-gradient(#ffcc4a 2px, transparent 2.5px);
+    background-size: 12px 12px;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 980px) {
+    .cp-inner {
+      grid-template-columns: 1fr;
+    }
+    .cp-right {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+</style>

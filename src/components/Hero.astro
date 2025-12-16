@@ -1,30 +1,103 @@
 ---
 import { Image } from "astro:assets";
-import Services from "./Services.astro";
 import CEOImage from "@assets/images/ceo.png";
 ---
 
 <section class="hero">
   <div class="hero-content">
-    <h1>Empowering Your Business Growth</h1>
-    <p>
-      Discover tailored strategies and expert insights to take your business to
-      the next level. Let us help you navigate challenges and achieve
-      sustainable success.
-    </p>
-    <a href="#0">Book a Meeting</a>
-  </div>
-  <Image src={CEOImage} alt="CEO" />
+    <div class="text">
+      <h1>Empowering Your Business Growth</h1>
+      <p>Discover tailored strategies and expert insights to take your business to the next level. Let us help you navigate challenges and achieve sustainable success.</p>
+      <a class="cta" href="#0">Book a Meeting</a>
+    </div>
 
-  <Services />
+    <!-- Hero-billede -->
+    <div class="image-wrap">
+      <Image src={CEOImage} alt="CEO" />
+    </div>
+  </div>
 </section>
 
 <style>
-  /* Styles her */
   @layer components {
-    .hero {
-      background-color: #f3f4f6;
-      padding: 2rem;
+    :root {
+      --color-yellow: #ffcc4a;
+      --square-pattern: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffcc4a"><path d="M7.47662 4.02206C6.50635 3.05178 5.53232 2.07774 4.56205 1.10745C4.28482 0.83023 3.80905 0.83023 3.53183 1.10745C2.56155 2.07774 1.59128 3.04803 0.621002 4.02206C0.343781 4.29929 0.343781 4.77506 0.621002 5.05229C1.59128 6.02258 2.5653 6.99661 3.53558 7.9669C3.8128 8.24412 4.28857 8.24412 4.56579 7.9669C5.53607 6.99661 6.51009 6.02258 7.48037 5.05229C7.63022 4.90244 7.69016 4.73011 7.69016 4.56527C7.69016 4.55403 7.69016 4.54654 7.69016 4.5353C7.69016 4.52781 7.69016 4.51657 7.69016 4.50908C7.69016 4.34424 7.63022 4.17191 7.47662 4.02206ZM4.04881 6.41968C3.41944 5.79031 2.79382 5.16468 2.16445 4.5353C2.79382 3.90593 3.41944 3.2803 4.04881 2.65092C4.67818 3.2803 5.3038 3.90593 5.93317 4.5353C5.3038 5.16468 4.67818 5.79031 4.04881 6.41968Z"/></svg>');
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 12vh;
+      width: clamp(60px, 12vw, 160px);
+      height: clamp(100px, 20vw, 240px);
+      background-image: var(--square-pattern);
+      background-repeat: repeat;
+      background-size: 12px 12px;
+      opacity: 0.9;
+      z-index: 2;
+    }
+
+    /* ===== HERO BASE ===== */
+
+     .hero {
+    position: relative;
+    background: var(--color-black);
+    color: var(--color-white);
+
+    /* ✅ scalable hero height + min height */
+    min-height: clamp(460px, 75vh, 660px);
+  }
+
+   .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+
+    /* ✅ ensures the grid matches hero height */
+    min-height: inherit;
+  }
+
+    .image-wrap picture,
+    .image-wrap img {
+      width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(0.5rem, 5vw, 4rem);
+      margin-inline-start: max(1rem, calc((100vw - 1200px) / 2));
+    }
+    .text h1 {
+      font-size: clamp(2rem, 4vw, 3.125rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .text p {
+      margin-block: 1rem 2rem;
+      font-size: clamp(0.8rem, 1.5vw, 1rem);
+      line-height: 1.6;
+    }
+
+    .cta {
+      display: inline-block;
+      background: var(--color-white);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      transition: filter 0.2s ease;
+      width: 12rem;
+    }
+
+    .cta:hover {
+      filter: brightness(0.9);
     }
   }
 </style>

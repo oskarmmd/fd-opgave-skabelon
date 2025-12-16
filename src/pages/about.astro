@@ -1,0 +1,21 @@
+---
+import AboutUsTeamSection from "@components/AboutUsTeamSection.astro"
+import Layout from "../layouts/Layout.astro"
+import CoreValues from "@components/CoreValues.astro"
+import HeroTitleCard from "@components/HeroTitleCard.astro"
+import Vision from "@components/Vision.astro"
+import FAQ from "@components/FAQ.astro";
+---
+
+<Layout>
+    <HeroTitleCard
+  imagePath="about.png"
+  eyebrow="ABOUT"
+  title="Creative Services For Boost Your Business Growth"
+/>
+<Vision /> 
+<CoreValues variant="light" />
+<AboutUsTeamSection />
+<FAQ />
+
+</Layout>

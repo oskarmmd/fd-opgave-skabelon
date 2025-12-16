@@ -1,0 +1,98 @@
+---
+import employees from "@data/employees.json";
+import EmployeeCard from "@components/EmployeeCard.astro";
+import type { ImageMetadata } from "astro";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/data/images/*.{webp,png,jpg,jpeg}"
+);
+
+const employeesWithImages = await Promise.all(
+  employees.slice(0, 3).map(async (employee) => {
+    // udtræk filnavn direkte
+    const file = employee.img.split("/").pop();
+    const key = `/src/data/images/${file}`;
+
+    const loader = images[key];
+    if (!loader) {
+      throw new Error(`Image not found: ${key}`);
+    }
+
+    const mod = await loader();
+    return {
+      employee,
+      image: mod.default,
+    };
+  })
+);
+---
+
+<section class="our_team">
+  <div class="wrapper">
+    <div class="top">
+      <p class="kicker">OUR TEAM</p>
+      <h2 class="heading">We champion the bold to achieve the extraordinary</h2>
+      <p class="intro">
+        Our success stems from the synergy between dedicated teams and our valued clients.
+        We prioritize a company culture that fosters exceptional productivity, ensures
+        customer satisfaction, and promotes mutual respect among all team members.
+      </p>
+    </div>
+
+    <div class="cards">
+      {employeesWithImages.map(({ employee, image }, i) => (
+        <EmployeeCard employee={employee} image={image} highlight={i === 0} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .our_team {
+    padding: 90px 0;
+    background: #fff;
+  }
+
+  .wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .top {
+    max-width: 560px;
+  }
+
+  .kicker {
+    margin: 0 0 14px;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+
+  .heading {
+    margin: 0 0 14px;
+    font-size: 44px;
+    line-height: 1.1;
+    font-weight: 900;
+    color: #111;
+  }
+
+  .intro {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #6b7280;
+  }
+
+  .cards {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    justify-items: center;
+  }
+
+
+</style>

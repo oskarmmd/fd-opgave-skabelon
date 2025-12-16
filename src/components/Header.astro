@@ -1,0 +1,82 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand">AskExperts</a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/case">Case Study</a>
+      <a href="/team">Team</a>
+      <a href="/about">About</a>
+    </nav>
+    <button
+  class="login"
+  popovertarget="login-popover"
+  aria-haspopup="dialog"
+>
+  Login
+</button>
+
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: rgba(27, 27, 27, 0.91);
+    /* Primary 03 */
+    color: var(--color-white); /* Secondary 02 */
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 28px 24px; /* fra Figma */
+    max-width: var(--container);
+    margin-inline: auto;
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-white);
+    text-decoration: none;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .main-nav a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .main-nav a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  /* Login-knap */
+  .login {
+    background: var(--color-yellow); /* Primary 01 */
+    color: var(--color-black); /* Primary 03 */
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: filter 0.2s ease;
+  }
+
+  .login:hover {
+    filter: brightness(0.95);
+  }
+</style>

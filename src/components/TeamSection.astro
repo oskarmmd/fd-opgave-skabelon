@@ -1,0 +1,116 @@
+---
+import employees from "@data/employees.json";
+import EmployeeCard from "@components/EmployeeCard.astro";
+import type { ImageMetadata } from "astro";
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/data/images/*.{webp,png,jpg,jpeg}"
+);
+
+const employeesWithImages = await Promise.all(
+  employees.map(async (employee) => {
+    const file = employee.img.split("/").pop();
+    const key = `/src/data/images/${file}`;
+
+    const loader = images[key];
+    if (!loader) throw new Error(`Image not found: ${key}`);
+
+    const mod = await loader();
+    return { employee, image: mod.default };
+  })
+);
+---
+
+<section class="team">
+  <div class="wrap">
+    <div class="top">
+      <div class="topText">
+        <h2 class="heading">Meet Our Great Team</h2>
+        <p class="intro">
+          Welcome to our amazing team! We are a group of passionate individuals dedicated to
+          excellence and innovation. Each member brings unique skills and experiences, working
+          together to achieve our goals.
+        </p>
+      </div>
+
+      <a class="cta" href="#">Join our team</a>
+    </div>
+
+  <div class="cards">
+  {employeesWithImages.map(({ employee, image }, i) => (
+    <EmployeeCard employee={employee} image={image} highlight={i === 0} />
+  ))}
+</div>
+
+
+  </div>
+</section>
+
+<style>
+  .team{
+    padding: 70px 0 90px;
+    background: #fff;
+  }
+
+  .wrap{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .top{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+  }
+
+  .topText{
+    max-width: 520px;
+  }
+
+  .heading{
+    margin: 0 0 10px;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 900;
+    color: #111;
+  }
+
+  .intro{
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #6b7280;
+  }
+
+  .cta{
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: flex-end;
+    white-space: nowrap;
+    height: fit-content;
+  }
+
+ .cards{
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  justify-items: stretch; /* 🔥 IMPORTANT */
+}
+
+.cardLink{
+  display: block;        
+  width: 100%;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+</style>

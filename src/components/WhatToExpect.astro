@@ -1,0 +1,179 @@
+---
+import { Image } from "astro:assets";
+import Checkmark from "@icons/checkmark.svg";
+import Photo from "@data/images/photo.png";
+
+export interface Props {
+  title?: string;
+  eyebrow?: string;
+  intro?: string;
+  points?: string[];
+  imageAlt?: string;
+}
+
+const {
+  title = "What To Expect",
+  eyebrow = "WE'LL WORK WITH YOU",
+  intro = "Our collaboration is built on transparency, efficiency, and measurable results. Together, we create strategies tailored to your unique needs and goals.",
+  points = [
+    "Collaborate to build actionable strategies that drive sustainable growth and deliver tangible outcomes.",
+    "Identify opportunities to optimize processes and implement impactful solutions with measurable results."
+  ],
+  imageAlt = "Team collaborating in a meeting",
+} = Astro.props;
+---
+
+<section class="expect" aria-labelledby="expect-title">
+  <div class="expect-inner">
+    <div class="media">
+      <Image
+        src={Photo}
+        alt={imageAlt}
+        loading="lazy"
+        class="media-img"
+      />
+    </div>
+
+    <div class="content">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 id="expect-title">{title}</h2>
+      <p class="intro">{intro}</p>
+
+      <ul class="list">
+        {points.map((point) => (
+          <li class="list-item">
+            <Checkmark />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    :root {
+      --expect-bg: #ffffff;
+      --expect-text: #1b1b1b;
+      --expect-muted: #666;
+      --expect-green: #4eaf4e;
+      --expect-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .expect {
+      background: var(--expect-bg);
+      color: var(--expect-text);
+      padding-block: clamp(3rem, 6vw, 5rem);
+    }
+
+    .expect-inner {
+      max-width: 1200px;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 3vw, 1.5rem);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      gap: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .media {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .media-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 22px;
+      box-shadow: var(--expect-shadow);
+    }
+
+      .media::before {
+        content: "";
+        position: absolute;
+        left: clamp(-2.5rem, -6vw, -3rem);
+        top: clamp(-3rem, -3vw, -6rem);
+        z-index: -1;
+        width: clamp(160px, 20vw, 240px);
+  height: clamp(160px, 20vw, 240px);
+        aspect-ratio: 0.7;
+        background: linear-gradient(
+          135deg,
+          #be965d,
+          #976f40,
+          #c99b61,
+          #f0be7b,
+          #ffcb85,
+          #eebc79,
+          #c0935b,
+          #976f40
+        );
+        mask:
+          var(--square-pattern) 0 0 / 0.85rem 0.85rem,
+          var(--square-pattern) 0.425rem 0.425rem / 0.85rem 0.85rem;
+        border-radius: 10px;
+      }
+
+    .media::after {
+      content: "";
+      position: absolute;
+      left: clamp(-0.75rem, -2vw, -0.5rem);
+      top: clamp(-1.25rem, -2.5vw, -0.75rem);
+      width: clamp(80px, 14vw, 120px);
+      height: clamp(80px, 14vw, 120px);
+      background: var(--expect-green);
+      border-radius: 18px;
+      z-index: -1;
+    }
+
+    .content .eyebrow {
+      margin: 0 0 0.25rem;
+      color: var(--expect-muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .content h2 {
+      margin: 0 0 0.6rem;
+      font-weight: 800;
+      line-height: 1.15;
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    }
+
+    .content .intro {
+      margin: 0 0 1.25rem;
+      color: #4a4a4a;
+      max-width: 58ch;
+      line-height: 1.6;
+    }
+
+    .list {
+      display: grid;
+      gap: 0.9rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .list-item :global(svg) {
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-top: 0.2rem;
+      color: var(--expect-green);
+    }
+
+  
+  }
+</style>

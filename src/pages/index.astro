@@ -1,8 +1,123 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Hero from "@components/Hero.astro";
+import Whattoexpect from "@components/WhatToExpect.astro";
+import Services from "@components/Services.astro";
+import FinancialProjection from "@components/FinancialProjection.astro";
+import Experience from "@components/Experience.astro";
+import CoreValues from "@components/CoreValues.astro";
+import Contact from "@components/Contact.astro";
 ---
 
 <Layout>
-  <Hero />
+  <div class="hero-stack">
+    <Hero />
+    <Services />
+  </div>
+
+  <Whattoexpect />
+  <FinancialProjection />
+  <Experience />
+  <CoreValues />
+  <Contact />
+
+  <!-- ✅ POPUP (one time on page) -->
+  <div id="login-popover" popover class="login-popover">
+    <form class="login-card">
+      <h2>Dashboard Login</h2>
+
+      <label>
+        <span>Email address</span>
+        <input type="email" />
+      </label>
+
+      <label>
+        <span>Password</span>
+        <input type="password" />
+      </label>
+
+      <button type="button" class="login-btn">Go to dashboard</button>
+    </form>
+  </div>
 </Layout>
+
+<style>
+  @layer components {
+    .hero-stack {
+      position: relative;
+      padding-bottom: var(--cards-overlap, clamp(5rem, 10vw, 7rem));
+    }
+
+    .hero-stack + section {
+      padding-top: var(--cards-overlap, clamp(5rem, 10vw, 7rem));
+    }
+
+    /* ✅ POPOVER STYLES */
+    .login-popover::backdrop {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+    }
+
+    .login-popover {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+
+    .login-card {
+      width: min(340px, 90vw);
+      background: linear-gradient(180deg, #1b1b1b, #111);
+      color: #fff;
+      border-radius: 16px;
+      padding: 2rem 1.75rem 1.75rem;
+      display: grid;
+      gap: 1.1rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .login-card h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .login-card label {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .login-card span {
+      font-size: 0.7rem;
+      color: #aaa;
+    }
+
+    .login-card input {
+      height: 45px;
+      border-radius: 3px;
+      border: none;
+      padding: 0 0.6rem;
+      font-size: 0.9rem;
+      outline: none;
+      background-color: white;
+    }
+
+    .login-btn {
+      margin-top: 0.5rem;
+      height: 38px;
+      border-radius: 999px;
+      border: none;
+      background: #f3c95b;
+      color: #111;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      width: 14rem;
+      margin: auto  ;
+    }
+
+    .login-btn:hover {
+      filter: brightness(1.05);
+    }
+  }
+</style>

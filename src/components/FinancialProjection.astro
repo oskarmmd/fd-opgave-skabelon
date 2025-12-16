@@ -1,0 +1,229 @@
+---
+import data from "@data/financialProjections.json";
+
+import ArrowLeft from "@icons/arrow-left.svg";
+import ArrowRight from "@icons/arrow--right.svg";
+
+import IconCal from "@icons/cal.svg";
+import IconCard from "@icons/card.svg";
+import IconLaw from "@icons/law.svg";
+import IconMoney from "@icons/money.svg";
+
+const title = data.title ?? "Financial Projections";
+const subtitle = data.subtitle ?? "";
+const values = data.values ?? [];
+
+const ICONS = {
+  cal: IconCal,
+  card: IconCard,
+  law: IconLaw,
+  money: IconMoney,
+};
+---
+
+<section class="fp" aria-labelledby="fp-title">
+  <div class="fp-inner">
+    <div class="fp-head">
+      <div class="fp-copy">
+        <h2 id="fp-title">{title}</h2>
+        <p class="fp-sub">{subtitle}</p>
+      </div>
+
+      <div class="fp-controls" aria-label="Carousel controls">
+        <button class="fp-btn fp-btn--prev" type="button" aria-label="Previous">
+          <ArrowLeft />
+        </button>
+        <button class="fp-btn fp-btn--next" type="button" aria-label="Next">
+          <ArrowRight />
+        </button>
+      </div>
+    </div>
+
+    <div class="fp-viewport">
+      <div class="fp-track">
+        {
+          values.map((item, i) => {
+            const Icon = ICONS[item.icon as keyof typeof ICONS] ?? IconCard;
+
+            return (
+              <article
+                class={`fp-card ${i === 1 ? "is-active" : ""}`}
+                data-card
+              >
+                <div class="fp-icon">
+                  <Icon />
+                </div>
+                <h3 class="fp-card-title">{item.title}</h3>
+                <p class="fp-card-desc">{item.description}</p>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const root = document.currentScript.closest(".fp");
+      if (!root) return;
+
+      const cards = Array.from(root.querySelectorAll("[data-card]"));
+      const prev = root.querySelector(".fp-btn--prev");
+      const next = root.querySelector(".fp-btn--next");
+
+      let index = cards.findIndex(c => c.classList.contains("is-active"));
+      if (index === -1) index = 0;
+
+      const setActive = (i) => {
+        index = Math.max(0, Math.min(cards.length - 1, i));
+        cards.forEach((c, idx) =>
+          c.classList.toggle("is-active", idx === index)
+        );
+      };
+
+      cards.forEach((card, i) =>
+        card.addEventListener("click", () => setActive(i))
+      );
+
+      prev?.addEventListener("click", () => setActive(index - 1));
+      next?.addEventListener("click", () => setActive(index + 1));
+    })();
+  </script>
+</section>
+
+<style>
+@layer components {
+  .fp {
+    background: #f7f7f7;
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+
+  .fp-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .fp-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.2rem);
+  }
+
+  .fp-copy h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    font-weight: 800;
+    color: #111;
+  }
+
+  .fp-sub {
+    margin: 0;
+    max-width: 62ch;
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .fp-controls {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .fp-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  .fp-btn :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .fp-btn--prev {
+    background: #1b1b1b;
+    color: #fff;
+  }
+
+  .fp-btn--next {
+    background: #ffcc4a;
+    color: #1b1b1b;
+  }
+
+  .fp-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-block: 3rem;
+  }
+
+  .fp-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(16rem, 22vw, 20rem);
+    gap: 1.5rem;
+    width: max-content;
+  }
+
+  .fp-card {
+    border-radius: 18px;
+    padding: 1.25rem 1.25rem 1.35rem;
+    background: #ededed;
+    color: #222;
+    min-height: 170px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .fp-card.is-active {
+    background: #111;
+    color: #fff;
+  }
+
+  .fp-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 0.75rem;
+    color: #111;
+  }
+
+  .fp-card.is-active .fp-icon {
+    color: #ffcc4a;
+  }
+
+  .fp-icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  .fp-card-title {
+    margin: 0 0 0.35rem;
+    font-weight: 800;
+    font-size: 1rem;
+  }
+
+  .fp-card-desc {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.55;
+    font-size: 0.9rem;
+  }
+
+  .fp-card.is-active .fp-card-desc {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+
+
+
+}
+</style>

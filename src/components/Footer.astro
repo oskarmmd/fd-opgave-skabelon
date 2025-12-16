@@ -1,0 +1,79 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="/" class="brand">AskExperts</a>
+
+    <hr class="divider" />
+
+    <p class="legal">
+      © 2025 Consultalk. All rights reserved |
+      <a href="/terms">Terms of Service</a> |
+      <a href="/privacy">Privacy Policy</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    width: 100%;
+
+    background: var(--color-black);
+    color: var(--color-white);
+    text-align: center;
+  }
+
+  /* container */
+  .footer-inner {
+    padding: 30px;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 3vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  /* brand */
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+  }
+
+  /* divider line */
+  .divider {
+    width: min(80%, 700px);
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    margin: 0;
+  }
+
+  /* legal text */
+  .legal {
+    font-family: var(--font-body);
+    font-size: clamp(0.8rem, 1vw, 0.9rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+  }
+
+  .legal a {
+    color: var(--color-white);
+    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
+  .legal a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  /* Responsiv spacing */
+  @media (max-width: 500px) {
+    .legal {
+      max-width: 90%;
+      text-wrap: pretty;
+    }
+  }
+</style>

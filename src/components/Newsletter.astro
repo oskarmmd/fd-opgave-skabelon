@@ -1,0 +1,170 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+}
+
+const { title = "Subscribe Our Newsletter", subtitle = "Build stronger Customer Relationships with <strong>Consultalk</strong>", ctaText = "Subscribe" } = Astro.props;
+---
+
+<section class="newsletter" aria-labelledby="nl-title">
+  <div class="nl-inner">
+    <div class="copy">
+      <h2 id="nl-title">{title}</h2>
+      <p set:html={subtitle} />
+    </div>
+
+    <form class="form" action="#" method="post" onsubmit="event.preventDefault()">
+      <label class="visually-hidden" for="nl-email">Email address</label>
+      <input id="nl-email" name="email" type="email" placeholder="your mail address" required />
+      <button class="btn" type="submit">{ctaText}</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  @layer components {
+   .newsletter {
+  --square-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='red'%3E%3Cpath d='M7.47662 4.02206C6.50635 3.05178 5.53232 2.07774 4.56205 1.10745C4.28482 0.83023 3.80905 0.83023 3.53183 1.10745C2.56155 2.07774 1.59128 3.04803 0.621002 4.02206C0.343781 4.29929 0.343781 4.77506 0.621002 5.05229C1.59128 6.02258 2.5653 6.99661 3.53558 7.9669C3.8128 8.24412 4.28857 8.24412 4.56579 7.9669C5.53607 6.99661 6.51009 6.02258 7.48037 5.05229Z'/%3E%3C/svg%3E");
+}
+
+    .newsletter {
+      margin-block: 24px;
+      margin-inline: auto;
+      max-width: 1200px;
+      position: relative;
+      background: #181818;
+      color: #fff;
+      border-radius: 12px;
+      overflow: clip;
+      isolation: isolate;
+      padding: clamp(2rem, 4vw, 3rem);
+    }
+
+    .nl-inner {
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: clamp(1rem, 3vw, 2rem);
+      position: relative;
+    }
+
+    .copy h2 {
+      margin: 0 0 0.35rem 0;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .copy p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    /* form */
+    .form {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr max-content;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .form input {
+      width: min(44ch, 52vw);
+      background: #fff;
+      color: #1b1b1b;
+      border: none;
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .form input::placeholder {
+      color: #b8b8b8;
+    }
+
+    .btn {
+      background: #ffcc4a;
+      color: #1b1b1b;
+      border: none;
+      border-radius: 999px;
+      padding: 0.8rem 1.25rem;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+      transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* === Decorative pattern (your gradient mask) === */
+    .newsletter::before {
+      --square-count: 12;
+      --square-size: 1rem;
+
+      --_square-size: var(--square-size, 1rem);
+      --_square-half: calc(var(--square-size) / 2);
+      --_square-sum: calc(var(--square-count) * var(--square-size));
+
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: -1;
+      transform-origin: 0 0;
+
+      inline-size: calc(var(--_square-sum) - var(--_square-half));
+      aspect-ratio: 0.7;
+
+      background: linear-gradient(135deg, #be965d, #976f40, #c99b61, #f0be7b, #ffcb85, #eebc79, #c0935b, #976f40) 0 0 / 100% 100%;
+
+      mask:
+        var(--square-pattern) 0 0 / var(--_square-size) var(--_square-size),
+        var(--square-pattern) var(--_square-half) var(--_square-half) / var(--_square-size) var(--_square-size);
+      rotate: -45deg;
+    }
+
+    .newsletter::after {
+      content: "";
+      height: 100%;
+      width: 50%;
+      border-radius: inherit;
+      background: #4eaf4e;
+      position: absolute;
+      top: 50%;
+      bottom: 0;
+      right: 2rem;
+      rotate: -45deg;
+      transform-origin: right top;
+      z-index: -1;
+    }
+
+    /* accessibility helper */
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+      clip-path: inset(50%);
+    }
+ 
+  }
+</style>

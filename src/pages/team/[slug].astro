@@ -1,0 +1,203 @@
+---
+import Layout from "@layouts/Layout.astro";
+import employees from "@data/employees.json";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+/* social icons */
+import IconInstagram from "@icons/instagram.svg";
+import IconFacebook from "@icons/facebook.svg";
+import IconTwitter from "@icons/twitter.svg";
+
+/* images */
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/data/images/*.{webp,png,jpg,jpeg}"
+);
+
+export function getStaticPaths() {
+  return employees.map((e) => ({
+    params: { slug: e.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const employee = employees.find((e) => e.slug === slug);
+if (!employee) throw new Error(`Employee not found: ${slug}`);
+
+const file = employee.img.split("/").pop();
+const key = `/src/data/images/${file}`;
+const mod = await images[key]();
+const image = mod.default;
+---
+
+<Layout>
+  <section class="profile">
+    <div class="inner">
+      <!-- IMAGE -->
+      <div class="media">
+        <Image src={image} alt={employee.name} class="photo" />
+      </div>
+
+      <!-- CONTENT -->
+      <div class="content">
+        <p class="eyebrow">TEAM MEMBER</p>
+        <h1 class="name">{employee.name}</h1>
+        <p class="role">{employee.title}</p>
+
+        <p class="bio">
+          {employee.description_long ??
+            "Add a description_long field in employees.json."}
+        </p>
+
+        <div class="social">
+          <IconInstagram />
+          <IconFacebook />
+          <IconTwitter />
+        </div>
+
+        <hr />
+
+        <h2 class="sub">Past experience</h2>
+        <p class="bio small">
+          {employee.past_experience ??
+            "Add a past_experience field in employees.json."}
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+@layer components {
+  /* ===== SECTION ===== */
+  .profile{
+    padding: clamp(60px, 8vw, 90px) 0;
+    background: #fff;
+  }
+
+  .inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 6vw, 60px);
+    align-items: center;
+  }
+
+  /* ===== IMAGE + PATTERN (same logic as Expect) ===== */
+  .media{
+    position: relative;
+    isolation: isolate;
+  }
+
+  .photo{
+    width: 100%;
+    display: block;
+    border-radius: 22px;
+    position: relative;
+    z-index: 1;
+    object-fit: cover;
+  }
+
+  /* GOLD PATTERN */
+  .media::before{
+    content:"";
+    position:absolute;
+    left: clamp(-48px, -6vw, -64px);
+    top: clamp(-56px, -6vw, -72px);
+    width: clamp(160px, 20vw, 240px);
+    height: clamp(160px, 20vw, 240px);
+    background: linear-gradient(
+      135deg,
+      #be965d,
+      #976f40,
+      #c99b61,
+      #f0be7b,
+      #ffcb85
+    );
+    mask:
+      radial-gradient(#000 1.3px, transparent 1.3px) 0 0 / 12px 12px;
+    opacity: .55;
+    border-radius: 14px;
+    z-index: 0;
+  }
+
+  /* GREEN BLOCK */
+  .media::after{
+    content:"";
+    position:absolute;
+    left: clamp(-18px, -3vw, -24px);
+    top: clamp(-14px, -3vw, -20px);
+    width: clamp(80px, 14vw, 120px);
+    height: clamp(80px, 14vw, 120px);
+    background: #4eaf4e;
+    border-radius: 18px;
+    z-index: 0;
+  }
+
+  /* ===== CONTENT ===== */
+  .content{
+    max-width: 520px;
+  }
+
+  .eyebrow{
+    margin: 0 0 6px;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+
+  .name{
+    margin: 0;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 900;
+    color: #111;
+  }
+
+  .role{
+    margin: 4px 0 14px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .bio{
+    margin: 0 0 14px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #4b5563;
+  }
+
+  .bio.small{
+    margin-top: 10px;
+  }
+
+  .sub{
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 900;
+    color: #111;
+  }
+
+  hr{
+    margin: 18px 0;
+    border: none;
+    height: 1px;
+    background: rgba(17,17,17,.12);
+  }
+
+  /* ===== SOCIAL ===== */
+  .social{
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .social :global(svg){
+    width: 18px;
+    height: 18px;
+    opacity: .9;
+  }
+}
+</style>
