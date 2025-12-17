@@ -24,7 +24,6 @@ const images = import.meta.glob("/src/data/images/*.{webp,png,jpg,jpeg}", {
   import: "default"
 });
 
-
 og derefter matche billedet til JSON-data baseret på filnavn. Det gør løsningen mere fleksibel og nemmere at udvide.
 
 Jeg har også arbejdet bevidst med semantisk HTML (section, article, header, nav) for bedre tilgængelighed og struktur.
