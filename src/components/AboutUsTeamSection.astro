@@ -94,5 +94,20 @@ const employeesWithImages = await Promise.all(
     justify-items: center;
   }
 
+  @media (max-width: 640px) {
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .heading {
+    font-size: 32px;
+  }
+
+  .our_team {
+    padding: 64px 0;
+  }
+}
+
 
 </style>

@@ -242,10 +242,11 @@ const values = data.values ?? [];
   width: clamp(36px, 4vw, 44px);
   height: clamp(36px, 4vw, 44px);
 }
-
-
-
-
-
+ }
+ @media (max-width: 572px) {
+    .cv-cards {
+      display: none;
+    }
   }
+}
 </style>
