@@ -1,82 +1,59 @@
-# Opgaveskabelon til Frontend Design tema på Frontend-valgfaget
+Kort refleksion
 
-Se opgavebeskrivelsen på Fronter.
+I denne opgave har jeg arbejdet med at omsætte et Figma-design til et fungerende website bygget i Astro. Fokus har været på struktur, genbrugelige komponenter og et responsivt layout, der fungerer på tværs af skærmstørrelser.
 
-## Medfølgende Data
+Udfordringer
 
-Der medfølger indholdsdata i form af lokale JSON-filer, som du kan bruge til din opgave. Det er ikke et krav til opgaven, men det kan gøre det nemmere og hurtigere at få tekst og billeder ind i dit projekt.
+En af de største udfordringer var at holde koden simpel, samtidig med at designet havde mange detaljer som overlays, mønstre og komplekse layouts. Særligt arbejdet med grid-layouts og placering af dekorative elementer (fx pseudo-elementer ::before og ::after) krævede justeringer for at fungere både på desktop og mobil.
 
-Bemærk, at CaseStudy-siden allerede inkluderer data fra en lokal JSON-fil.
+Derudover krævede det lidt ekstra arbejde at håndtere billeder dynamisk via import.meta.glob, så samme komponenter kunne bruges flere steder uden hardcodede paths.
 
-Dokumentationen til anvendelsen af dataene finder du på: [https://frontend-design-theme.netlify.app/](https://frontend-design-theme.netlify.app/).
+Successer
 
-Her er et eksempel på, hvordan du kan bruge dataene i dine Astro-komponenter:
+Jeg er tilfreds med, at jeg har fået opbygget løsningen med genbrugelige komponenter, fx:
 
-```astro
-import employees from "@data/employees.json";
+EmployeeCard.astro
 
-console.log(employees);
-```
+Sektioner som Team, Vision og Services
 
-## Brug af hjælpekomponenter
+Dynamiske single-view sider baseret på slug
 
-### DynamicImage.astro
+Et eksempel på dynamisk data-håndtering er:
 
-Brug denne komponent til at vise billeder dynamisk fra lokale datafiler. Du skal blot sende stien fra datasættet direkte til komponenten.
+const images = import.meta.glob("/src/data/images/*.{webp,png,jpg,jpeg}", {
+  import: "default"
+});
 
-Eksempel med data:
 
-```astro
-{employees.map((employee) => (
-  <DynamicImage
-    imagePath={employee.img}
-    altText={employee.name}
-    width={200}
-    height={200}
-  />
-))}
-```
+og derefter matche billedet til JSON-data baseret på filnavn. Det gør løsningen mere fleksibel og nemmere at udvide.
 
-### DynamicIcon.astro
+Jeg har også arbejdet bevidst med semantisk HTML (section, article, header, nav) for bedre tilgængelighed og struktur.
 
-`DynamicIcon` bruges til at vise SVG-ikoner dynamisk baseret på et navn fra dine data.
+CSS-struktur
 
-Eksempel med data:
+CSS er opdelt i:
 
-```astro
-{employee.social_links.map((link) => (
-  <DynamicIcon name={link.icon} />
-))}
-```
+Global CSS (fx farver, typografi og generelle layout-regler)
 
-Her vises et ikon for hvert socialt medie, hvor `icon`-feltet matcher filnavnet på SVG-ikonet i `src/icons/`.
+Komponent-specifik CSS, som ligger direkte i Astro-komponenterne
 
-### HeroBgWrapper.astro
+Jeg bruger @layer components til at sikre, at komponent-styles ikke konflikter med hinanden, og til at holde koden mere vedligeholdelsesvenlig.
 
-HeroBgWrapper bruges til Hero-sektioner på diverse undersider. Brug `imagePath` til at angive baggrundsbilledet. Du skal selv hente billederne fra Figma og lægge dem i mappen `src/assets/images`. Henvis derefter kun til filnavnet (f.eks. 'case.webp').
+Responsivt design er primært løst med CSS Grid og media queries, fx:
 
-Alt markup du placerer mellem <HeroBgWrapper> og </HeroBgWrapper> bliver vist ovenpå baggrunden.
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
 
-Eksempel:
+@media (max-width: 640px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
 
-```astro
-<HeroBgWrapper imagePath="case.webp" class="hero-bg">
-  <h1>Din overskrift</h1>
-</HeroBgWrapper>
-```
+Her tilpasses layoutet uden at ændre HTML-strukturen.
 
-Du kan tilføje ekstra styling via `class` eller `style`-props, og alt indhold mellem tags bliver vist ovenpå baggrunden.
+Konklusion
 
----
-
-## Import af SVG-ikoner direkte
-
-Du kan også importere SVG-ikoner direkte i dine komponenter, hvis du ønsker mere kontrol eller styling:
-
-```astro
-import Checkmark from "@icons/checkmark.svg";
-
-<Checkmark width={32} height={32} class="my-icon" />
-```
-
-Se evt. `src/pages/svgs.astro` for flere eksempler på direkte import og brug af SVG-ikoner.
+Samlet set har opgaven givet mig en bedre forståelse for, hvordan man strukturerer et større Astro-projekt, arbejder systematisk med komponenter og oversætter et visuelt design til robust, responsiv kode. Jeg har haft fokus på klar struktur, genbrug og læsbarhed frem for unødig kompleksitet.
